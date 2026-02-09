@@ -70,7 +70,6 @@ src/main/java
       Lottos
       WinningNumbers
     service
-      LottoPurchaseService
       LottoResultService
     view
       InputView
@@ -81,11 +80,11 @@ src/test/java
     controller
       LottoControllerTest
     domain
+      LottosTest
       LottoResultTest
       LottoTest
       WinningNumbersTest
     service
-      LottoPurchaseServiceTest
       LottoResultServiceTest
 ```
 
@@ -113,7 +112,6 @@ src/test/java
 
 ### lotto.service
 
-- `LottoPurchaseService`: 금액 기반 로또 발급
 - `LottoResultService`: 전체 로또 통계 집계 및 수익률 계산
 
 ## 프로젝트 구현 계획
