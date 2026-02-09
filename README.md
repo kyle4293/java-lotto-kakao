@@ -70,8 +70,6 @@ src/main/java
       LottoResult
       LottoTicket
       WinningNumbers
-    generator
-      LottoNumberGenerator
     service
       LottoPurchaseService
       LottoResultService
@@ -111,7 +109,7 @@ src/test/java
 ### lotto.domain
 
 - `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증
-- `LottoNumbers`: 숫자 리스트 정렬/중복/범위 검증
+- `LottoNumbers`: 숫자 리스트 정렬/중복/범위 검증 및 자동 생성
 - `LottoResult`: 일치 개수/보너스 여부로 결과와 상금 판단
 - `LottoTicket`: 로또 여러 장 일급 컬렉션
 - `WinningNumbers`: 당첨 번호 + 보너스 볼 보관 및 검증
@@ -120,10 +118,6 @@ src/test/java
 
 - `LottoPurchaseService`: 금액 기반 로또 발급
 - `LottoResultService`: 전체 로또 통계 집계 및 수익률 계산
-
-### lotto.generator
-
-- `LottoNumberGenerator`: 로또 번호 자동 생성
 
 ## 프로젝트 구현 계획
 
