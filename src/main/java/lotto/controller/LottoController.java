@@ -1,0 +1,27 @@
+package lotto.controller;
+
+import lombok.RequiredArgsConstructor;
+import lotto.service.LottoPurchaseService;
+import lotto.service.LottoResultService;
+import lotto.view.InputView;
+import lotto.view.OutputView;
+
+@RequiredArgsConstructor
+public class LottoController {
+	private final InputView inputView;
+	private final OutputView outputView;
+	private final LottoPurchaseService lottoPurchaseService;
+	private final LottoResultService lottoResultService;
+
+	public static LottoController create() {
+		return new LottoController(
+			new InputView(),
+			new OutputView(),
+			new LottoPurchaseService(),
+			new LottoResultService()
+		);
+	}
+
+	public void run() {
+	}
+}
