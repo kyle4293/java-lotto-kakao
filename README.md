@@ -66,9 +66,8 @@ src/main/java
       LottoController
     domain
       Lotto
-      LottoNumbers
       LottoResult
-      LottoTicket
+      Lottos
       WinningNumbers
     service
       LottoPurchaseService
@@ -82,7 +81,6 @@ src/test/java
     controller
       LottoControllerTest
     domain
-      LottoNumbersTest
       LottoResultTest
       LottoTest
       WinningNumbersTest
@@ -108,10 +106,9 @@ src/test/java
 
 ### lotto.domain
 
-- `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증
-- `LottoNumbers`: 숫자 리스트 정렬/중복/범위 검증 및 자동 생성
+- `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증 및 자동 생성
 - `LottoResult`: 일치 개수/보너스 여부로 결과와 상금 판단
-- `LottoTicket`: 로또 여러 장 일급 컬렉션
+- `Lottos`: 로또 여러 장 일급 컬렉션
 - `WinningNumbers`: 당첨 번호 + 보너스 볼 보관 및 검증
 
 ### lotto.service
