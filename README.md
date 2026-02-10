@@ -67,10 +67,9 @@ src/main/java
     domain
       Lotto
       LottoResult
+      LottoStatistics
       Lottos
       WinningNumbers
-    service
-      LottoResultService
     view
       InputView
       OutputView
@@ -80,12 +79,11 @@ src/test/java
     controller
       LottoControllerTest
     domain
+      LottoStatisticsTest
       LottosTest
       LottoResultTest
       LottoTest
       WinningNumbersTest
-    service
-      LottoResultServiceTest
 ```
 
 ## 클래스 책임
@@ -106,13 +104,10 @@ src/test/java
 ### lotto.domain
 
 - `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증 및 자동 생성
-- `LottoResult`: 일치 개수/보너스 여부로 결과와 상금 판단
+- `LottoResult`: 당첨 등급과 상금 정의
+- `LottoStatistics`: 전체 당첨 통계 및 총 상금 계산
 - `Lottos`: 로또 여러 장 일급 컬렉션
 - `WinningNumbers`: 당첨 번호 + 보너스 볼 보관 및 검증
-
-### lotto.service
-
-- `LottoResultService`: 전체 로또 통계 집계 및 수익률 계산
 
 ## 프로젝트 구현 계획
 
