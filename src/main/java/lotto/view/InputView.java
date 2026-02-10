@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 
 public class InputView {
 	private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -21,9 +22,9 @@ public class InputView {
 		return Lotto.of(parseNumbers(readLine()));
 	}
 
-	public int readBonusNumber() {
+	public LottoNumber readBonusNumber() {
 		System.out.println("보너스 볼을 입력해 주세요.");
-		return parseInt(readLine());
+		return LottoNumber.of(parseInt(readLine()));
 	}
 
 	private String readLine() {
@@ -38,11 +39,12 @@ public class InputView {
 		return Integer.parseInt(input.trim());
 	}
 
-	private List<Integer> parseNumbers(String input) {
+	private List<LottoNumber> parseNumbers(String input) {
 		return Arrays.stream(input.split(","))
 			.map(String::trim)
 			.filter(value -> !value.isEmpty())
 			.map(Integer::parseInt)
+			.map(LottoNumber::of)
 			.collect(Collectors.toList());
 	}
 }

@@ -3,6 +3,7 @@ package lotto.controller;
 import lombok.RequiredArgsConstructor;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoStatistics;
 import lotto.domain.Lottos;
 import lotto.domain.WinningNumbers;
@@ -29,7 +30,7 @@ public class LottoController {
 		outputView.printLottos(lottos);
 
 		Lotto winningNumbers = inputView.readWinningNumbers();
-		int bonusNumber = inputView.readBonusNumber();
+		LottoNumber bonusNumber = inputView.readBonusNumber();
 		WinningNumbers winning = WinningNumbers.of(winningNumbers, bonusNumber);
 		LottoStatistics statistics = LottoStatistics.of(lottos, winning);
 

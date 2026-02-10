@@ -29,7 +29,7 @@ public enum LottoResult {
 		return matchResult(matchedCount, bonusMatched);
 	}
 
-	private static int countMatches(List<Integer> lottoNumbers, List<Integer> winningNumbers) {
+	private static int countMatches(List<LottoNumber> lottoNumbers, List<LottoNumber> winningNumbers) {
 		long count = lottoNumbers.stream()
 			.filter(winningNumbers::contains)
 			.count();

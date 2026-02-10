@@ -3,43 +3,46 @@ package lotto.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class WinningNumbersTest {
 	@Test
 	void of_createsWinningNumbers() {
-		Lotto numbers = Lotto.of(List.of(1, 2, 3, 4, 5, 6));
+		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
 
-		WinningNumbers winningNumbers = WinningNumbers.of(numbers, 7);
+		WinningNumbers winningNumbers = WinningNumbers.of(numbers, LottoNumber.of(7));
 
 		assertThat(winningNumbers.getLotto()).isEqualTo(numbers);
-		assertThat(winningNumbers.getBonusNumber()).isEqualTo(7);
-	}
-
-	@ParameterizedTest
-	@ValueSource(ints = {-1, 0, 46})
-	void of_throwsForBonusNumberOutOfRange(int bonusNumber) {
-		Lotto numbers = Lotto.of(List.of(1, 2, 3, 4, 5, 6));
-
-		assertThatIllegalArgumentException()
-			.isThrownBy(() -> WinningNumbers.of(numbers, bonusNumber));
+		assertThat(winningNumbers.getBonusNumber()).isEqualTo(LottoNumber.of(7));
 	}
 
 	@Test
 	void of_throwsForDuplicateBonusNumber() {
-		Lotto numbers = Lotto.of(List.of(1, 2, 3, 4, 5, 6));
+		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> WinningNumbers.of(numbers, 6));
+			.isThrownBy(() -> WinningNumbers.of(numbers, LottoNumber.of(6)));
 	}
 
 	@Test
 	void of_throwsForNullNumbers() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> WinningNumbers.of(null, 7));
+			.isThrownBy(() -> WinningNumbers.of(null, LottoNumber.of(7)));
 	}
 
+	@Test
+	void of_throwsForNullBonusNumber() {
+		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
+
+		assertThatIllegalArgumentException()
+			.isThrownBy(() -> WinningNumbers.of(numbers, null));
+	}
+
+	private List<LottoNumber> numbers(int... values) {
+		return IntStream.of(values)
+			.mapToObj(LottoNumber::of)
+			.toList();
+	}
 }

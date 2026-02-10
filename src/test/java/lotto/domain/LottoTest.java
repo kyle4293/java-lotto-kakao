@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,22 +10,16 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class LottoTest {
     @Test
     void constructor_sortsNumbers() {
-        Lotto lotto = Lotto.of(List.of(5, 1, 3, 2, 4, 6));
+        Lotto lotto = Lotto.of(numbers(5, 1, 3, 2, 4, 6));
 
-        assertThat(lotto.getNumbers()).containsExactly(1, 2, 3, 4, 5, 6);
-    }
-
-    @Test
-    void constructor_throwsForOutOfRangeNumbers() {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 46);
-
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> Lotto.of(numbers));
+        assertThat(lotto.getNumbers())
+                .extracting(LottoNumber::getValue)
+                .containsExactly(1, 2, 3, 4, 5, 6);
     }
 
     @Test
     void constructor_throwsForDuplicateNumbers() {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 5);
+        List<LottoNumber> numbers = numbers(1, 2, 3, 4, 5, 5);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> Lotto.of(numbers));
@@ -32,7 +27,7 @@ class LottoTest {
 
     @Test
     void constructor_throwsForInvalidSize() {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+        List<LottoNumber> numbers = numbers(1, 2, 3, 4, 5);
 
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> Lotto.of(numbers));
@@ -46,6 +41,12 @@ class LottoTest {
                 .hasSize(6)
                 .doesNotHaveDuplicates()
                 .isSorted()
-                .allMatch(number -> number >= 1 && number <= 45);
+                .allMatch(number -> number.getValue() >= 1 && number.getValue() <= 45);
+    }
+
+    private List<LottoNumber> numbers(int... values) {
+        return IntStream.of(values)
+                .mapToObj(LottoNumber::of)
+                .toList();
     }
 }

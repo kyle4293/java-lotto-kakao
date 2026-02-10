@@ -4,25 +4,22 @@ import lombok.Getter;
 
 @Getter
 public class WinningNumbers {
-	private static final int MIN_NUMBER = 1;
-	private static final int MAX_NUMBER = 45;
-
 	private final Lotto lotto;
-	private final int bonusNumber;
+	private final LottoNumber bonusNumber;
 
-	private WinningNumbers(Lotto lotto, int bonusNumber) {
+	private WinningNumbers(Lotto lotto, LottoNumber bonusNumber) {
 		validate(lotto, bonusNumber);
 		this.lotto = lotto;
 		this.bonusNumber = bonusNumber;
 	}
 
-	public static WinningNumbers of(Lotto numbers, int bonusNumber) {
+	public static WinningNumbers of(Lotto numbers, LottoNumber bonusNumber) {
 		return new WinningNumbers(numbers, bonusNumber);
 	}
 
-	private static void validate(Lotto numbers, int bonusNumber) {
+	private static void validate(Lotto numbers, LottoNumber bonusNumber) {
 		validateNotNull(numbers);
-		validateBonusRange(bonusNumber);
+		validateNotNull(bonusNumber);
 		validateBonusDistinct(numbers, bonusNumber);
 	}
 
@@ -32,14 +29,13 @@ public class WinningNumbers {
 		}
 	}
 
-	private static void validateBonusRange(int bonusNumber) {
-		boolean inRange = bonusNumber >= MIN_NUMBER && bonusNumber <= MAX_NUMBER;
-		if (!inRange) {
-			throw new IllegalArgumentException("Bonus number must be between 1 and 45.");
+	private static void validateNotNull(LottoNumber bonusNumber) {
+		if (bonusNumber == null) {
+			throw new IllegalArgumentException("Bonus number cannot be null.");
 		}
 	}
 
-	private static void validateBonusDistinct(Lotto numbers, int bonusNumber) {
+	private static void validateBonusDistinct(Lotto numbers, LottoNumber bonusNumber) {
 		if (numbers.getNumbers().contains(bonusNumber)) {
 			throw new IllegalArgumentException("Bonus number must not match winning numbers.");
 		}
