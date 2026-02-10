@@ -30,7 +30,6 @@ class LottoStatisticsTest {
 		assertThat(statistics.getCounts().get(LottoResult.FIVE_MATCH)).isEqualTo(1);
 		assertThat(statistics.getCounts().get(LottoResult.FOUR_MATCH)).isEqualTo(2);
 		assertThat(statistics.getCounts().get(LottoResult.THREE_MATCH)).isEqualTo(1);
-		assertThat(statistics.getCounts().get(LottoResult.NO_MATCH)).isEqualTo(1);
 	}
 
 	@Test

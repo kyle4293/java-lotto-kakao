@@ -76,6 +76,7 @@ src/main/java
 
 src/test/java
   lotto
+    LottoIntegrationTest
     controller
       LottoControllerTest
     domain

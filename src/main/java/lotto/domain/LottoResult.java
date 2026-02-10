@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 import lombok.Getter;
 
@@ -10,8 +11,7 @@ public enum LottoResult {
 	FOUR_MATCH(4, false, 50000L),
 	FIVE_MATCH(5, false, 1500000L),
 	FIVE_MATCH_WITH_BONUS(5, true, 30000000L),
-	SIX_MATCH(6, false, 2000000000L),
-	NO_MATCH(0, false, 0L);
+	SIX_MATCH(6, false, 2000000000L);
 
 	private final int matchCount;
 	private final boolean bonusMatch;
@@ -23,7 +23,7 @@ public enum LottoResult {
 		this.prize = prize;
 	}
 
-	public static LottoResult from(Lotto lotto, WinningNumbers winningNumbers) {
+	public static Optional<LottoResult> from(Lotto lotto, WinningNumbers winningNumbers) {
 		int matchedCount = countMatches(lotto.getNumbers(), winningNumbers.getLotto().getNumbers());
 		boolean bonusMatched = lotto.getNumbers().contains(winningNumbers.getBonusNumber());
 		return matchResult(matchedCount, bonusMatched);
@@ -36,22 +36,22 @@ public enum LottoResult {
 		return Math.toIntExact(count);
 	}
 
-	private static LottoResult matchResult(int matchCount, boolean bonusMatch) {
+	private static Optional<LottoResult> matchResult(int matchCount, boolean bonusMatch) {
 		if (matchCount == SIX_MATCH.matchCount) {
-			return SIX_MATCH;
+			return Optional.of(SIX_MATCH);
 		}
 		if (matchCount == FIVE_MATCH.matchCount && bonusMatch) {
-			return FIVE_MATCH_WITH_BONUS;
+			return Optional.of(FIVE_MATCH_WITH_BONUS);
 		}
 		if (matchCount == FIVE_MATCH.matchCount) {
-			return FIVE_MATCH;
+			return Optional.of(FIVE_MATCH);
 		}
 		if (matchCount == FOUR_MATCH.matchCount) {
-			return FOUR_MATCH;
+			return Optional.of(FOUR_MATCH);
 		}
 		if (matchCount == THREE_MATCH.matchCount) {
-			return THREE_MATCH;
+			return Optional.of(THREE_MATCH);
 		}
-		return NO_MATCH;
+		return Optional.empty();
 	}
 }

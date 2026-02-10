@@ -18,8 +18,8 @@ public class LottoStatistics {
 	public static LottoStatistics of(Lottos lottos, WinningNumbers winningNumbers) {
 		Map<LottoResult, Integer> counts = initializeCounts();
 		for (Lotto lotto : lottos.lottos()) {
-			LottoResult result = LottoResult.from(lotto, winningNumbers);
-			counts.put(result, counts.get(result) + 1);
+			LottoResult.from(lotto, winningNumbers)
+				.ifPresent(result -> counts.put(result, counts.get(result) + 1));
 		}
 		long totalPrize = calculateTotalPrize(counts);
 		return new LottoStatistics(counts, totalPrize);
