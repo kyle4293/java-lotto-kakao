@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lombok.RequiredArgsConstructor;
 import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
 import lotto.domain.LottoStatistics;
 import lotto.domain.Lottos;
 import lotto.domain.WinningNumbers;
@@ -12,17 +13,19 @@ import lotto.view.OutputView;
 public class LottoController {
 	private final InputView inputView;
 	private final OutputView outputView;
+	private final LottoMachine lottoMachine;
 
 	public static LottoController create() {
 		return new LottoController(
 			new InputView(),
-			new OutputView()
+			new OutputView(),
+			new LottoMachine()
 		);
 	}
 
 	public void run() {
 		int amount = inputView.readPurchaseAmount();
-		Lottos lottos = Lottos.generate(amount);
+		Lottos lottos = lottoMachine.issue(amount);
 		outputView.printLottos(lottos);
 
 		Lotto winningNumbers = inputView.readWinningNumbers();

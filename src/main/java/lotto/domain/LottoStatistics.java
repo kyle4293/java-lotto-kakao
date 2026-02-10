@@ -43,7 +43,7 @@ public class LottoStatistics {
 		return total;
 	}
 
-	public double getProfitRate(long purchaseAmount) {
+	public double getProfitRate(int purchaseAmount) {
 		return totalPrize / (double)purchaseAmount;
 	}
 }

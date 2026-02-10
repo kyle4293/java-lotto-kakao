@@ -67,6 +67,6 @@ class LottoStatisticsTest {
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
-		assertThat(statistics.getProfitRate(10_000L)).isEqualTo(203_005.5);
+		assertThat(statistics.getProfitRate(10_000)).isEqualTo(203_005.5);
 	}
 }

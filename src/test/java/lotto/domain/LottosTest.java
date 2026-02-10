@@ -4,24 +4,20 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class LottosTest {
 	@ParameterizedTest
-	@CsvSource({
-		"1000, 1",
-		"1500, 1",
-		"2500, 2"
-	})
-	void fromAmount_returnsExpectedCount(int amount, int expectedCount) {
-		Lottos lottos = Lottos.generate(amount);
+	@ValueSource(ints = {1, 2, 5})
+	void generate_returnsExpectedCount(int count) {
+		Lottos lottos = Lottos.generate(count);
 
-		assertThat(lottos.lottos()).hasSize(expectedCount);
+		assertThat(lottos.lottos()).hasSize(count);
 	}
 
 	@Test
-	void generate_throwsForAmountLessThanPrice() {
+	void generate_throwsForNonPositiveCount() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> Lottos.generate(999));
+			.isThrownBy(() -> Lottos.generate(0));
 	}
 }
