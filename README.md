@@ -66,6 +66,8 @@ src/main/java
       LottoController
     domain
       Lotto
+      LottoMachine
+      LottoNumber
       LottoResult
       LottoStatistics
       Lottos
@@ -80,6 +82,8 @@ src/test/java
     controller
       LottoControllerTest
     domain
+      LottoMachineTest
+      LottoNumberTest
       LottoStatisticsTest
       LottosTest
       LottoResultTest
@@ -105,6 +109,8 @@ src/test/java
 ### lotto.domain
 
 - `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증 및 자동 생성
+- `LottoMachine`: 구매 금액을 기준으로 로또 발급(가격 정책 포함)
+- `LottoNumber`: 로또 번호(1~45) 값 객체
 - `LottoResult`: 당첨 등급과 상금 정의
 - `LottoStatistics`: 전체 당첨 통계 및 총 상금 계산
 - `Lottos`: 로또 여러 장 일급 컬렉션
