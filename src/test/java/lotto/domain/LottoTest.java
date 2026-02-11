@@ -32,15 +32,4 @@ class LottoTest {
 			.isThrownBy(() -> Lotto.from(numbers));
 	}
 
-	@Test
-	void generateRandom_returnsSortedUniqueNumbersWithinRange() {
-		Lotto lotto = Lotto.generateRandom();
-
-		assertThat(lotto.getNumbers())
-			.hasSize(6)
-			.doesNotHaveDuplicates()
-			.isSorted()
-			.allMatch(number -> number.getValue() >= 1 && number.getValue() <= 45);
-	}
-
 }

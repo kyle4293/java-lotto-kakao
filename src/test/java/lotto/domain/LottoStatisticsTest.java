@@ -13,7 +13,7 @@ class LottoStatisticsTest {
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			LottoNumber.of(7)
 		);
-		Lottos lottos = new Lottos(List.of(
+		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
 			Lotto.from(List.of(1, 2, 3, 4, 5, 8)),
@@ -21,7 +21,7 @@ class LottoStatisticsTest {
 			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
 			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
 			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
-		));
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
@@ -38,13 +38,13 @@ class LottoStatisticsTest {
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			LottoNumber.of(7)
 		);
-		Lottos lottos = new Lottos(List.of(
+		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
 			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
 			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
 			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
-		));
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
@@ -57,13 +57,13 @@ class LottoStatisticsTest {
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			LottoNumber.of(7)
 		);
-		Lottos lottos = new Lottos(List.of(
+		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
 			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
 			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
 			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
 			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
-		));
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 

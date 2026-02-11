@@ -29,17 +29,6 @@ public class Lotto {
 		return new Lotto(numbers);
 	}
 
-	public static Lotto generateRandom() {
-		List<LottoNumber> lottoNumberPool = LottoNumber.getPool();
-		Collections.shuffle(lottoNumberPool);
-		List<LottoNumber> picked = new ArrayList<>(lottoNumberPool.subList(0, REQUIRED_SIZE));
-		return Lotto.fromLottoNumbers(picked);
-	}
-
-	private static Lotto fromLottoNumbers(List<LottoNumber> numbers) {
-		return new Lotto(numbers);
-	}
-
 	private static void validate(Collection<LottoNumber> numbers) {
 		validateNotNull(numbers);
 		validateSize(numbers);
