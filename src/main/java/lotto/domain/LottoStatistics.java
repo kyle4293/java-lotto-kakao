@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
@@ -15,10 +16,10 @@ public class LottoStatistics {
 		this.totalPrize = totalPrize;
 	}
 
-	public static LottoStatistics of(Lottos lottos, WinningNumbers winningNumbers) {
+	public static LottoStatistics of(List<Lotto> lottos, WinningNumbers winningNumbers) {
 		Map<LottoResult, Integer> counts = initializeCounts();
-		for (Lotto lotto : lottos.lottos()) {
-			LottoResult.from(lotto, winningNumbers)
+		for (Lotto lotto : lottos) {
+			winningNumbers.match(lotto)
 				.ifPresent(result -> counts.put(result, counts.get(result) + 1));
 		}
 		long totalPrize = calculateTotalPrize(counts);
@@ -44,6 +45,9 @@ public class LottoStatistics {
 	}
 
 	public double getProfitRate(int purchaseAmount) {
+		if (purchaseAmount == 0) {
+			throw new IllegalArgumentException("Purchase amount must not be zero.");
+		}
 		return totalPrize / (double)purchaseAmount;
 	}
 }

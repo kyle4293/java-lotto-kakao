@@ -21,8 +21,9 @@ public class LottoNumber implements Comparable<LottoNumber> {
 		this.value = value;
 	}
 
-	public static LottoNumber of(int value) {
-		return new LottoNumber(value);
+	public static LottoNumber from(int value) {
+		validate(value);
+		return POOL.get(value - 1);
 	}
 
 	public static List<LottoNumber> getPool() {
@@ -32,7 +33,8 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	private static void validate(int value) {
 		boolean inRange = value >= MIN_NUMBER && value <= MAX_NUMBER;
 		if (!inRange) {
-			throw new IllegalArgumentException("Lotto number must be between 1 and 45.");
+			throw new IllegalArgumentException(
+				String.format("Lotto number must be between %d and %d.", MIN_NUMBER, MAX_NUMBER));
 		}
 	}
 

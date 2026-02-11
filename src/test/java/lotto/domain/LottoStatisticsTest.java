@@ -3,26 +3,27 @@ package lotto.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class LottoStatisticsTest {
+	@DisplayName("로또와 당첨 번호로 결과별 개수를 집계해야 한다")
 	@Test
-	void of_countsEachResult() {
+	void of_withLottosAndWinningNumbers_countsEachResult() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			LottoNumber.from(7)
 		);
-		Lottos lottos = new Lottos(List.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			Lotto.of(numbers(1, 2, 3, 4, 5, 7)),
-			Lotto.of(numbers(1, 2, 3, 4, 5, 8)),
-			Lotto.of(numbers(1, 2, 3, 4, 7, 10)),
-			Lotto.of(numbers(1, 2, 3, 4, 9, 10)),
-			Lotto.of(numbers(1, 2, 3, 9, 10, 11)),
-			Lotto.of(numbers(8, 9, 10, 11, 12, 13))
-		));
+		List<Lotto> lottos = List.of(
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
+			Lotto.from(List.of(1, 2, 3, 4, 5, 8)),
+			Lotto.from(List.of(1, 2, 3, 4, 7, 10)),
+			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
+			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
+			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
@@ -33,47 +34,44 @@ class LottoStatisticsTest {
 		assertThat(statistics.getCounts().get(LottoResult.THREE_MATCH)).isEqualTo(1);
 	}
 
+	@DisplayName("로또와 당첨 번호로 총 당첨금을 계산해야 한다")
 	@Test
-	void of_calculatesTotalPrize() {
+	void of_withLottosAndWinningNumbers_calculatesTotalPrize() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			LottoNumber.from(7)
 		);
-		Lottos lottos = new Lottos(List.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			Lotto.of(numbers(1, 2, 3, 4, 5, 7)),
-			Lotto.of(numbers(1, 2, 3, 4, 9, 10)),
-			Lotto.of(numbers(1, 2, 3, 9, 10, 11)),
-			Lotto.of(numbers(8, 9, 10, 11, 12, 13))
-		));
+		List<Lotto> lottos = List.of(
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
+			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
+			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
+			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
 		assertThat(statistics.getTotalPrize()).isEqualTo(2_030_055_000L);
 	}
 
+	@DisplayName("구입 금액으로 수익률을 계산해야 한다")
 	@Test
-	void getProfitRate_calculatesBasedOnPurchaseAmount() {
+	void getProfitRate_withPurchaseAmount_returnsProfitRate() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			LottoNumber.from(7)
 		);
-		Lottos lottos = new Lottos(List.of(
-			Lotto.of(numbers(1, 2, 3, 4, 5, 6)),
-			Lotto.of(numbers(1, 2, 3, 4, 5, 7)),
-			Lotto.of(numbers(1, 2, 3, 4, 9, 10)),
-			Lotto.of(numbers(1, 2, 3, 9, 10, 11)),
-			Lotto.of(numbers(8, 9, 10, 11, 12, 13))
-		));
+		List<Lotto> lottos = List.of(
+			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
+			Lotto.from(List.of(1, 2, 3, 4, 5, 7)),
+			Lotto.from(List.of(1, 2, 3, 4, 9, 10)),
+			Lotto.from(List.of(1, 2, 3, 9, 10, 11)),
+			Lotto.from(List.of(8, 9, 10, 11, 12, 13))
+		);
 
 		LottoStatistics statistics = LottoStatistics.of(lottos, winningNumbers);
 
 		assertThat(statistics.getProfitRate(10_000)).isEqualTo(203_005.5);
 	}
 
-	private List<LottoNumber> numbers(int... values) {
-		return IntStream.of(values)
-			.mapToObj(LottoNumber::of)
-			.toList();
-	}
 }

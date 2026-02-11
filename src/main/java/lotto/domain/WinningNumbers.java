@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import java.util.List;
+import java.util.Optional;
+
 import lombok.Getter;
 
 @Getter
@@ -15,6 +18,12 @@ public class WinningNumbers {
 
 	public static WinningNumbers of(Lotto numbers, LottoNumber bonusNumber) {
 		return new WinningNumbers(numbers, bonusNumber);
+	}
+
+	public Optional<LottoResult> match(Lotto lotto) {
+		int matchCount = countMatches(lotto.getNumbers(), this.lotto.getNumbers());
+		boolean bonusMatched = lotto.getNumbers().contains(bonusNumber);
+		return LottoResult.of(matchCount, bonusMatched);
 	}
 
 	private static void validate(Lotto numbers, LottoNumber bonusNumber) {
@@ -39,5 +48,12 @@ public class WinningNumbers {
 		if (numbers.getNumbers().contains(bonusNumber)) {
 			throw new IllegalArgumentException("Bonus number must not match winning numbers.");
 		}
+	}
+
+	private static int countMatches(List<LottoNumber> lottoNumbers, List<LottoNumber> winningNumbers) {
+		long count = lottoNumbers.stream()
+			.filter(winningNumbers::contains)
+			.count();
+		return Math.toIntExact(count);
 	}
 }

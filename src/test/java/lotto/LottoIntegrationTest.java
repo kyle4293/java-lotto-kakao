@@ -3,13 +3,15 @@ package lotto;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoIntegrationTest {
+	@DisplayName("정상 입력 시 안내 문구가 출력되어야 한다")
 	@Test
-	void run_printsExpectedSections() {
+	void main_withValidInput_printsExpectedSections() {
 		String input = String.join(System.lineSeparator(),
 			"1000",
 			"1, 2, 3, 4, 5, 6",

@@ -1,11 +1,12 @@
 package lotto.controller;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoStatistics;
-import lotto.domain.Lottos;
 import lotto.domain.WinningNumbers;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -26,11 +27,11 @@ public class LottoController {
 
 	public void run() {
 		int amount = inputView.readPurchaseAmount();
-		Lottos lottos = lottoMachine.issue(amount);
+		List<Lotto> lottos = lottoMachine.issue(amount);
 		outputView.printLottos(lottos);
 
-		Lotto winningNumbers = inputView.readWinningNumbers();
-		LottoNumber bonusNumber = inputView.readBonusNumber();
+		Lotto winningNumbers = Lotto.from(inputView.readWinningNumbers());
+		LottoNumber bonusNumber = LottoNumber.from(inputView.readBonusNumber());
 		WinningNumbers winning = WinningNumbers.of(winningNumbers, bonusNumber);
 		LottoStatistics statistics = LottoStatistics.of(lottos, winning);
 
