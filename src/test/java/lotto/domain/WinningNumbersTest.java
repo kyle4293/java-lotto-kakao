@@ -4,11 +4,13 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class WinningNumbersTest {
+	@DisplayName("당첨 번호는 번호와 보너스로 구성되어야 한다")
 	@Test
-	void of_createsWinningNumbers() {
+	void of_withNumbersAndBonus_createsWinningNumbers() {
 		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		WinningNumbers winningNumbers = WinningNumbers.of(numbers, LottoNumber.from(7));
@@ -17,22 +19,25 @@ class WinningNumbersTest {
 		assertThat(winningNumbers.getBonusNumber()).isEqualTo(LottoNumber.from(7));
 	}
 
+	@DisplayName("보너스 번호가 당첨 번호와 중복되면 IllegalArgumentException이 발생해야 한다")
 	@Test
-	void of_throwsForDuplicateBonusNumber() {
+	void of_withDuplicateBonusNumber_throwsIllegalArgumentException() {
 		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> WinningNumbers.of(numbers, LottoNumber.from(6)));
 	}
 
+	@DisplayName("당첨 번호가 null이면 IllegalArgumentException이 발생해야 한다")
 	@Test
-	void of_throwsForNullNumbers() {
+	void of_withNullNumbers_throwsIllegalArgumentException() {
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> WinningNumbers.of(null, LottoNumber.from(7)));
 	}
 
+	@DisplayName("보너스 번호가 null이면 IllegalArgumentException이 발생해야 한다")
 	@Test
-	void of_throwsForNullBonusNumber() {
+	void of_withNullBonusNumber_throwsIllegalArgumentException() {
 		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
