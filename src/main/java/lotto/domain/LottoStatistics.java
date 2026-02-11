@@ -44,6 +44,9 @@ public class LottoStatistics {
 	}
 
 	public double getProfitRate(int purchaseAmount) {
+		if (purchaseAmount == 0) {
+			throw new IllegalArgumentException("Purchase amount must not be zero.");
+		}
 		return totalPrize / (double)purchaseAmount;
 	}
 }
