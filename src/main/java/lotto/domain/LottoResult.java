@@ -23,35 +23,17 @@ public enum LottoResult {
 		this.prize = prize;
 	}
 
-	public static Optional<LottoResult> from(Lotto lotto, WinningNumbers winningNumbers) {
-		int matchedCount = countMatches(lotto.getNumbers(), winningNumbers.getLotto().getNumbers());
-		boolean bonusMatched = lotto.getNumbers().contains(winningNumbers.getBonusNumber());
-		return matchResult(matchedCount, bonusMatched);
-	}
-
-	private static int countMatches(List<LottoNumber> lottoNumbers, List<LottoNumber> winningNumbers) {
-		long count = lottoNumbers.stream()
-			.filter(winningNumbers::contains)
-			.count();
-		return Math.toIntExact(count);
+	public static Optional<LottoResult> from(int matchCount, boolean bonusMatch) {
+		return matchResult(matchCount, bonusMatch);
 	}
 
 	private static Optional<LottoResult> matchResult(int matchCount, boolean bonusMatch) {
-		if (matchCount == SIX_MATCH.matchCount) {
-			return Optional.of(SIX_MATCH);
-		}
-		if (matchCount == FIVE_MATCH.matchCount && bonusMatch) {
-			return Optional.of(FIVE_MATCH_WITH_BONUS);
-		}
-		if (matchCount == FIVE_MATCH.matchCount) {
-			return Optional.of(FIVE_MATCH);
-		}
-		if (matchCount == FOUR_MATCH.matchCount) {
-			return Optional.of(FOUR_MATCH);
-		}
-		if (matchCount == THREE_MATCH.matchCount) {
-			return Optional.of(THREE_MATCH);
-		}
-		return Optional.empty();
+		return switch (matchCount) {
+			case 6 -> Optional.of(SIX_MATCH);
+			case 5 -> Optional.of(bonusMatch ? FIVE_MATCH_WITH_BONUS : FIVE_MATCH);
+			case 4 -> Optional.of(FOUR_MATCH);
+			case 3 -> Optional.of(THREE_MATCH);
+			default -> Optional.empty();
+		};
 	}
 }
