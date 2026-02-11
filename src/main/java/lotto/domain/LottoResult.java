@@ -7,11 +7,11 @@ import lombok.Getter;
 
 @Getter
 public enum LottoResult {
-	THREE_MATCH(3, false, 5000L),
-	FOUR_MATCH(4, false, 50000L),
-	FIVE_MATCH(5, false, 1500000L),
-	FIVE_MATCH_WITH_BONUS(5, true, 30000000L),
-	SIX_MATCH(6, false, 2000000000L);
+	THREE_MATCH(3, false, 5_000L),
+	FOUR_MATCH(4, false, 50_000L),
+	FIVE_MATCH(5, false, 1_500_000L),
+	FIVE_MATCH_WITH_BONUS(5, true, 30_000_000L),
+	SIX_MATCH(6, false, 2_000_000_000L);
 
 	private final int matchCount;
 	private final boolean bonusMatch;
