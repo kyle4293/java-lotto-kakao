@@ -48,7 +48,7 @@ public class Lotto {
 
 	private static void validateSize(List<LottoNumber> numbers) {
 		if (numbers.size() != REQUIRED_SIZE) {
-			throw new IllegalArgumentException("Lotto numbers must be 6.");
+			throw new IllegalArgumentException(String.format("Lotto numbers must be %d.", REQUIRED_SIZE));
 		}
 	}
 
