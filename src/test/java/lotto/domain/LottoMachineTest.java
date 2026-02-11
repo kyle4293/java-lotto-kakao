@@ -33,4 +33,18 @@ class LottoMachineTest {
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> machine.issue(999));
 	}
+
+	@DisplayName("발급된 로또 번호는 정렬되고 중복이 없으며 범위 내여야 한다")
+	@Test
+	void issue_withAmount_returnsSortedUniqueNumbersWithinRange() {
+		LottoMachine machine = new LottoMachine();
+
+		Lotto lotto = machine.issue(1_000).getFirst();
+
+		assertThat(lotto.getNumbers())
+			.hasSize(6)
+			.doesNotHaveDuplicates()
+			.isSorted()
+			.allMatch(number -> number.getValue() >= 1 && number.getValue() <= 45);
+	}
 }
