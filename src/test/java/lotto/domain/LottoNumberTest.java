@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class LottoNumberTest {
 	@ParameterizedTest
 	@ValueSource(ints = {-1, 0, 46})
-	void constructor_throwsForOutOfRangeValue(int value) {
+	void constructor_throwsForOutFromRangeValue(int value) {
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> LottoNumber.of(value));
 	}

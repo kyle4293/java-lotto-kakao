@@ -3,14 +3,13 @@ package lotto.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
 class WinningNumbersTest {
 	@Test
 	void of_createsWinningNumbers() {
-		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
+		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		WinningNumbers winningNumbers = WinningNumbers.of(numbers, LottoNumber.of(7));
 
@@ -20,7 +19,7 @@ class WinningNumbersTest {
 
 	@Test
 	void of_throwsForDuplicateBonusNumber() {
-		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
+		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> WinningNumbers.of(numbers, LottoNumber.of(6)));
@@ -34,15 +33,9 @@ class WinningNumbersTest {
 
 	@Test
 	void of_throwsForNullBonusNumber() {
-		Lotto numbers = Lotto.of(numbers(1, 2, 3, 4, 5, 6));
+		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
 			.isThrownBy(() -> WinningNumbers.of(numbers, null));
-	}
-
-	private List<LottoNumber> numbers(int... values) {
-		return IntStream.of(values)
-			.mapToObj(LottoNumber::of)
-			.toList();
 	}
 }
