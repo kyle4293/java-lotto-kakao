@@ -31,7 +31,7 @@ public class LottoController {
 		outputView.printLottos(lottos);
 
 		Lotto winningNumbers = Lotto.from(inputView.readWinningNumbers());
-		LottoNumber bonusNumber = LottoNumber.of(inputView.readBonusNumber());
+		LottoNumber bonusNumber = LottoNumber.from(inputView.readBonusNumber());
 		WinningNumbers winning = WinningNumbers.of(winningNumbers, bonusNumber);
 		LottoStatistics statistics = LottoStatistics.of(lottos, winning);
 

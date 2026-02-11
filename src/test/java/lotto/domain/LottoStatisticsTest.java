@@ -11,7 +11,7 @@ class LottoStatisticsTest {
 	void from_countsEachResult() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			LottoNumber.from(7)
 		);
 		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
@@ -36,7 +36,7 @@ class LottoStatisticsTest {
 	void from_calculatesTotalPrize() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			LottoNumber.from(7)
 		);
 		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
@@ -55,7 +55,7 @@ class LottoStatisticsTest {
 	void getProfitRate_calculatesBasedOnPurchaseAmount() {
 		WinningNumbers winningNumbers = WinningNumbers.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),
-			LottoNumber.of(7)
+			LottoNumber.from(7)
 		);
 		List<Lotto> lottos = List.of(
 			Lotto.from(List.of(1, 2, 3, 4, 5, 6)),

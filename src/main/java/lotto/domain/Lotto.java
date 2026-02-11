@@ -24,7 +24,7 @@ public class Lotto {
 	public static Lotto from(List<Integer> values) {
 		validateValues(values);
 		List<LottoNumber> numbers = values.stream()
-			.map(LottoNumber::of)
+			.map(LottoNumber::from)
 			.toList();
 		return new Lotto(numbers);
 	}

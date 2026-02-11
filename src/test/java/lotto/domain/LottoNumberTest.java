@@ -10,6 +10,6 @@ class LottoNumberTest {
 	@ValueSource(ints = {-1, 0, 46})
 	void constructor_throwsForOutFromRangeValue(int value) {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> LottoNumber.of(value));
+			.isThrownBy(() -> LottoNumber.from(value));
 	}
 }

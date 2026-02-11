@@ -23,7 +23,7 @@ public class WinningNumbers {
 	public Optional<LottoResult> match(Lotto lotto) {
 		int matchCount = countMatches(lotto.getNumbers(), this.lotto.getNumbers());
 		boolean bonusMatched = lotto.getNumbers().contains(bonusNumber);
-		return LottoResult.from(matchCount, bonusMatched);
+		return LottoResult.of(matchCount, bonusMatched);
 	}
 
 	private static void validate(Lotto numbers, LottoNumber bonusNumber) {

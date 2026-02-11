@@ -23,7 +23,7 @@ public enum LottoResult {
 		this.prize = prize;
 	}
 
-	public static Optional<LottoResult> from(int matchCount, boolean bonusMatch) {
+	public static Optional<LottoResult> of(int matchCount, boolean bonusMatch) {
 		return matchResult(matchCount, bonusMatch);
 	}
 

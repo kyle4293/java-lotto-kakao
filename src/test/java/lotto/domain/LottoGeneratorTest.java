@@ -28,7 +28,7 @@ class LottoGeneratorTest {
 	void generate_returnsSortedUniqueNumbersWithinRange() {
 		LottoGenerator generator = new LottoGenerator();
 
-		Lotto lotto = generator.generate(1).get(0);
+		Lotto lotto = generator.generate(1).getFirst();
 
 		assertThat(lotto.getNumbers())
 			.hasSize(6)

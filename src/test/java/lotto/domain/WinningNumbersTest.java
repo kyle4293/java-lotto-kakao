@@ -11,10 +11,10 @@ class WinningNumbersTest {
 	void of_createsWinningNumbers() {
 		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
-		WinningNumbers winningNumbers = WinningNumbers.of(numbers, LottoNumber.of(7));
+		WinningNumbers winningNumbers = WinningNumbers.of(numbers, LottoNumber.from(7));
 
 		assertThat(winningNumbers.getLotto()).isEqualTo(numbers);
-		assertThat(winningNumbers.getBonusNumber()).isEqualTo(LottoNumber.of(7));
+		assertThat(winningNumbers.getBonusNumber()).isEqualTo(LottoNumber.from(7));
 	}
 
 	@Test
@@ -22,13 +22,13 @@ class WinningNumbersTest {
 		Lotto numbers = Lotto.from(List.of(1, 2, 3, 4, 5, 6));
 
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> WinningNumbers.of(numbers, LottoNumber.of(6)));
+			.isThrownBy(() -> WinningNumbers.of(numbers, LottoNumber.from(6)));
 	}
 
 	@Test
 	void of_throwsForNullNumbers() {
 		assertThatIllegalArgumentException()
-			.isThrownBy(() -> WinningNumbers.of(null, LottoNumber.of(7)));
+			.isThrownBy(() -> WinningNumbers.of(null, LottoNumber.from(7)));
 	}
 
 	@Test

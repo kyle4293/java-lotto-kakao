@@ -21,7 +21,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
 		this.value = value;
 	}
 
-	public static LottoNumber of(int value) {
+	public static LottoNumber from(int value) {
 		validate(value);
 		return POOL.get(value - 1);
 	}
