@@ -50,7 +50,7 @@ public class Lotto {
 		if (numbers == null) {
 			throw new IllegalArgumentException("Numbers cannot be null.");
 		}
-		boolean hasNull = numbers.stream().anyMatch(number -> number == null);
+		boolean hasNull = numbers.stream().anyMatch(Objects::isNull);
 		if (hasNull) {
 			throw new IllegalArgumentException("Lotto numbers cannot be null.");
 		}
