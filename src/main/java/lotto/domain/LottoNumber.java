@@ -22,7 +22,8 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	}
 
 	public static LottoNumber of(int value) {
-		return new LottoNumber(value);
+		validate(value);
+		return POOL.get(value - 1);
 	}
 
 	public static List<LottoNumber> getPool() {
