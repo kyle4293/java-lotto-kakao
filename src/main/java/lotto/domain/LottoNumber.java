@@ -34,7 +34,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
 		boolean inRange = value >= MIN_LOTTO_NUMBER && value <= MAX_LOTTO_NUMBER;
 		if (!inRange) {
 			throw new IllegalArgumentException(
-				String.format("Lotto number must be between %d and %d.", MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+				String.format("로또 번호는 %d부터 %d까지여야 합니다.", MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
 		}
 	}
 

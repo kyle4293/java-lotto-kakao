@@ -1,5 +1,7 @@
 package lotto.controller;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
@@ -7,8 +9,6 @@ import lotto.domain.LottoNumber;
 import lotto.domain.LottoPurchase;
 import lotto.domain.LottoStatistics;
 import lotto.domain.WinningNumbers;
-import lotto.dto.LottoPurchaseRequest;
-import lotto.dto.WinningNumbersRequest;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -27,24 +27,23 @@ public class LottoController {
 	}
 
 	public void run() {
-		LottoPurchaseRequest lottoPurchaseRequest = inputView.readPurchaseInput();
-		LottoPurchase purchase = issuePurchase(lottoPurchaseRequest);
+		LottoPurchase purchase = issuePurchase();
 		outputView.printLottos(purchase);
 
-		WinningNumbersRequest winningNumbersRequest = inputView.readWinningInput();
-		LottoStatistics statistics = LottoStatistics.of(purchase, toWinningNumbers(winningNumbersRequest));
+		LottoStatistics statistics = LottoStatistics.of(purchase, readWinningNumbers());
 		outputView.printResult(statistics);
 	}
 
-	private LottoPurchase issuePurchase(LottoPurchaseRequest request) {
-		request.validate();
-		return lottoMachine.issue(request.amount(), request.manualCount(), request.manualNumbers());
+	private LottoPurchase issuePurchase() {
+		int amount = inputView.readPurchaseAmount();
+		int manualCount = inputView.readManualCount(amount);
+		List<List<Integer>> manualNumbers = inputView.readManualNumbers(manualCount);
+		return lottoMachine.issue(amount, manualCount, manualNumbers);
 	}
 
-	private WinningNumbers toWinningNumbers(WinningNumbersRequest request) {
-		request.validate();
-		Lotto numbers = Lotto.from(request.winningNumbers());
-		LottoNumber bonusNumber = LottoNumber.from(request.bonusNumber());
-		return WinningNumbers.of(numbers, bonusNumber);
+	private WinningNumbers readWinningNumbers() {
+		List<Integer> winningNumbers = inputView.readWinningNumbers();
+		int bonusNumber = inputView.readBonusNumber(winningNumbers);
+		return WinningNumbers.of(Lotto.from(winningNumbers), LottoNumber.from(bonusNumber));
 	}
 }
