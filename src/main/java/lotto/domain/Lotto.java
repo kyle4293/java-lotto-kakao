@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import static lotto.domain.LottoPolicy.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,7 +13,6 @@ import lombok.Getter;
 
 @Getter
 public class Lotto {
-	private static final int REQUIRED_SIZE = 6;
 
 	private final List<LottoNumber> numbers;
 
@@ -46,8 +47,8 @@ public class Lotto {
 	}
 
 	private static void validateSize(Collection<LottoNumber> numbers) {
-		if (numbers.size() != REQUIRED_SIZE) {
-			throw new IllegalArgumentException(String.format("Lotto numbers must be %d.", REQUIRED_SIZE));
+		if (numbers.size() != REQUIRED_LOTTO_SIZE) {
+			throw new IllegalArgumentException(String.format("Lotto numbers must be %d.", REQUIRED_LOTTO_SIZE));
 		}
 	}
 

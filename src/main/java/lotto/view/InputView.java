@@ -6,13 +6,45 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import lotto.dto.LottoPurchaseRequest;
+import lotto.dto.WinningNumbersRequest;
 
 public class InputView {
 	private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+	public LottoPurchaseRequest readPurchaseInput() {
+		int amount = readPurchaseAmount();
+		int manualCount = readManualCount();
+		List<List<Integer>> manualNumbers = readManualNumbers(manualCount);
+		return new LottoPurchaseRequest(amount, manualCount, manualNumbers);
+	}
+
+	public WinningNumbersRequest readWinningInput() {
+		List<Integer> winningNumbers = readWinningNumbers();
+		int bonusNumber = readBonusNumber();
+		return new WinningNumbersRequest(winningNumbers, bonusNumber);
+	}
+
 	public int readPurchaseAmount() {
 		System.out.println("구입금액을 입력해 주세요.");
 		return parseInt(readLine());
+	}
+
+	public int readManualCount() {
+		System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+		return parseInt(readLine());
+	}
+
+	public List<List<Integer>> readManualNumbers(int count) {
+		if (count <= 0) {
+			return List.of();
+		}
+		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+		List<List<Integer>> numbers = new java.util.ArrayList<>();
+		for (int i = 0; i < count; i++) {
+			numbers.add(parseNumbers(readLine()));
+		}
+		return numbers;
 	}
 
 	public List<Integer> readWinningNumbers() {

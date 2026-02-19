@@ -91,10 +91,13 @@ src/main/java
       Lotto
       LottoMachine
       LottoNumber
+      LottoPurchase
       LottoResult
       LottoStatistics
-      Lottos
       WinningNumbers
+    dto
+      LottoPurchaseRequest
+      WinningNumbersRequest
     view
       InputView
       OutputView
@@ -108,7 +111,6 @@ src/test/java
       LottoMachineTest
       LottoNumberTest
       LottoStatisticsTest
-      LottosTest
       LottoResultTest
       LottoTest
       WinningNumbersTest
@@ -134,8 +136,12 @@ src/test/java
 - `Lotto`: 로또 한 장의 숫자 집합, 유효성 검증 및 자동 생성
 - `LottoMachine`: 구매 금액을 기준으로 로또 발급(가격 정책 포함)
 - `LottoNumber`: 로또 번호(1~45) 값 객체
+- `LottoPurchase`: 구매 결과(수동/자동 수량 및 로또 목록)
 - `LottoResult`: 당첨 등급과 상금 정의
 - `LottoStatistics`: 전체 당첨 통계 및 총 상금 계산
-- `Lottos`: 로또 여러 장 일급 컬렉션
 - `WinningNumbers`: 당첨 번호 + 보너스 볼 보관 및 검증
 
+### lotto.dto
+
+- `LottoPurchaseRequest`: 구매 입력 정보(금액, 수동 수량, 수동 번호)
+- `WinningNumbersRequest`: 당첨 번호/보너스 볼 입력 정보

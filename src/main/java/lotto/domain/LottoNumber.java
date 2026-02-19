@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import static lotto.domain.LottoPolicy.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +12,6 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class LottoNumber implements Comparable<LottoNumber> {
-	private static final int MIN_NUMBER = 1;
-	private static final int MAX_NUMBER = 45;
 	private static final List<LottoNumber> POOL = createPool();
 
 	private final int value;
@@ -31,16 +31,16 @@ public class LottoNumber implements Comparable<LottoNumber> {
 	}
 
 	private static void validate(int value) {
-		boolean inRange = value >= MIN_NUMBER && value <= MAX_NUMBER;
+		boolean inRange = value >= MIN_LOTTO_NUMBER && value <= MAX_LOTTO_NUMBER;
 		if (!inRange) {
 			throw new IllegalArgumentException(
-				String.format("Lotto number must be between %d and %d.", MIN_NUMBER, MAX_NUMBER));
+				String.format("Lotto number must be between %d and %d.", MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
 		}
 	}
 
 	private static List<LottoNumber> createPool() {
 		List<LottoNumber> pool = new ArrayList<>();
-		for (int number = MIN_NUMBER; number <= MAX_NUMBER; number++) {
+		for (int number = MIN_LOTTO_NUMBER; number <= MAX_LOTTO_NUMBER; number++) {
 			pool.add(new LottoNumber(number));
 		}
 		return Collections.unmodifiableList(pool);
