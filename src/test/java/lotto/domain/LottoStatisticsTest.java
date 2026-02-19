@@ -55,6 +55,6 @@ class LottoStatisticsTest {
 	}
 
 	private LottoPurchase createPurchase(List<Lotto> lottos, int amount) {
-		return new LottoPurchase(lottos, 0, lottos.size(), amount);
+		return LottoPurchase.of(lottos, 0, lottos.size(), amount);
 	}
 }

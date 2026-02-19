@@ -7,11 +7,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoMachine {
-	public LottoPurchase issue(int amount, int manualCount, List<List<Integer>> manualNumbers) {
+	public LottoPurchase issue(int amount, int manualCount, List<Lotto> manualLottos) {
 		int autoCount = amount / LOTTO_PRICE - manualCount;
-		List<Lotto> lottos = new ArrayList<>(manualNumbers.stream().map(Lotto::from).toList());
+		List<Lotto> lottos = new ArrayList<>(manualLottos);
 		lottos.addAll(generate(autoCount));
-		return new LottoPurchase(lottos, manualCount, autoCount, amount);
+		return LottoPurchase.of(lottos, manualCount, autoCount, amount);
 	}
 
 	private List<Lotto> generate(int count) {

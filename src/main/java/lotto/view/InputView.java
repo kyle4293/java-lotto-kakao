@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import lotto.validation.LottoNumbersValidator;
-import lotto.validation.PurchaseValidator;
-import lotto.validation.WinningNumbersValidator;
+import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
+import lotto.domain.LottoPurchase;
+import lotto.domain.WinningNumbers;
 
 public class InputView {
 	private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +21,7 @@ public class InputView {
 			try {
 				System.out.println("구입금액을 입력해 주세요.");
 				int amount = parseInt(readLine());
-				PurchaseValidator.validateAmount(amount);
+				LottoPurchase.validateAmount(amount);
 				return amount;
 			} catch (IllegalArgumentException exception) {
 				printError(exception.getMessage());
@@ -33,7 +34,7 @@ public class InputView {
 			try {
 				System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
 				int manualCount = parseInt(readLine());
-				PurchaseValidator.validateManualCount(amount, manualCount);
+				LottoPurchase.validateManualCount(amount, manualCount);
 				return manualCount;
 			} catch (IllegalArgumentException exception) {
 				printError(exception.getMessage());
@@ -41,39 +42,38 @@ public class InputView {
 		}
 	}
 
-	public List<List<Integer>> readManualNumbers(int count) {
+	public List<Lotto> readManualNumbers(int count) {
 		if (count <= 0) {
 			return List.of();
 		}
 		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-		List<List<Integer>> numbers = new ArrayList<>();
+		List<Lotto> numbers = new ArrayList<>();
 		for (int i = 0; i < count; i++) {
 			numbers.add(readManualNumbersLine());
 		}
-		PurchaseValidator.validateManualNumbersCount(count, numbers);
+		LottoPurchase.validateManualLottosCount(count, numbers);
 		return numbers;
 	}
 
-	public List<Integer> readWinningNumbers() {
+	public WinningNumbers readWinningNumbers() {
+		Lotto winningNumbers = readWinningLotto();
 		while (true) {
 			try {
-				System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-				List<Integer> numbers = parseNumbers(readLine());
-				WinningNumbersValidator.validateWinningNumbers(numbers);
-				return numbers;
+				System.out.println("보너스 볼을 입력해 주세요.");
+				int bonusNumber = parseInt(readLine());
+				return WinningNumbers.of(winningNumbers, LottoNumber.from(bonusNumber));
 			} catch (IllegalArgumentException exception) {
 				printError(exception.getMessage());
 			}
 		}
 	}
 
-	public int readBonusNumber(List<Integer> winningNumbers) {
+	private Lotto readWinningLotto() {
 		while (true) {
 			try {
-				System.out.println("보너스 볼을 입력해 주세요.");
-				int bonusNumber = parseInt(readLine());
-				WinningNumbersValidator.validateBonusNumber(winningNumbers, bonusNumber);
-				return bonusNumber;
+				System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+				List<Integer> numbers = parseNumbers(readLine());
+				return Lotto.from(numbers);
 			} catch (IllegalArgumentException exception) {
 				printError(exception.getMessage());
 			}
@@ -118,12 +118,11 @@ public class InputView {
 		return token;
 	}
 
-	private List<Integer> readManualNumbersLine() {
+	private Lotto readManualNumbersLine() {
 		while (true) {
 			try {
 				List<Integer> numbers = parseNumbers(readLine());
-				LottoNumbersValidator.validateNumbers(numbers);
-				return numbers;
+				return Lotto.from(numbers);
 			} catch (IllegalArgumentException exception) {
 				printError(exception.getMessage());
 			}
