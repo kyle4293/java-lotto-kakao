@@ -4,7 +4,9 @@ import static lotto.domain.LottoPolicy.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,7 +14,7 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class LottoNumber implements Comparable<LottoNumber> {
-	private static final List<LottoNumber> POOL = createPool();
+	private static final Map<Integer, LottoNumber> POOL = createPool();
 
 	private final int value;
 
@@ -23,11 +25,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
 	public static LottoNumber from(int value) {
 		validate(value);
-		return POOL.get(value - 1);
+		return POOL.get(value);
 	}
 
 	public static List<LottoNumber> getPool() {
-		return new ArrayList<>(POOL);
+		return new ArrayList<>(POOL.values());
 	}
 
 	private static void validate(int value) {
@@ -38,12 +40,12 @@ public class LottoNumber implements Comparable<LottoNumber> {
 		}
 	}
 
-	private static List<LottoNumber> createPool() {
-		List<LottoNumber> pool = new ArrayList<>();
+	private static Map<Integer, LottoNumber> createPool() {
+		Map<Integer, LottoNumber> cache = new LinkedHashMap<>();
 		for (int number = MIN_LOTTO_NUMBER; number <= MAX_LOTTO_NUMBER; number++) {
-			pool.add(new LottoNumber(number));
+			cache.put(number, new LottoNumber(number));
 		}
-		return Collections.unmodifiableList(pool);
+		return Collections.unmodifiableMap(cache);
 	}
 
 	@Override
